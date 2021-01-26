@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Post View
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Post View</h1>
+<br>
+<hr class="container" style="color: black;">
+<br>
+<div class="row">
+    <div class="col-lg-6 pl-5">
+        <img src="{{ post.image.url }}" height="550" width="900" alt="">
+    </div>
+    <div class="col-lg-6">
+        <div class="media-body">
+            <div class="article-metadata">
+                <br>
+                <h1 class="article-title">{{ post.title }}</h1>
+                <a class="mr-2 text-muted" href="{% url 'user-profile' post.author.id %}">{{ post.author }}</a>
+                <small class="text-muted">Published on {{ post.date_posted|date:"F d, Y" }}</small>
+                <br>
+                <br>
+
+                <p>What is Lorem Ipsum?
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    
+                    Why do we use it?
+                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                    
+                    
+                    Where does it come from?
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                    
+                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                    <br>
+                    <strong> This post has {{total_likes}} likes.</strong></p>
+            
+            </div>
+
+          </div>
+    </div>
+    <div class="col-lg-3">
+        {% if user.is_authenticated %}  
+            <form action="{% url 'like-post' post.pk %}" method="POST">
+                {% csrf_token %}
+                {% if liked %}
+                    <button value="{{post.id}}" name="post_id" type="submit"><img src="/media/love_button-2.png" style="position: relative; left: 690px; top: 5px;" width="50" height="50" alt=""></button>
+                {% else %}
+                    <button value="{{post.id}}" name="post_id" type="submit"><img src="/media/love_button-1.png" style="position: relative; left: 690px; top: 5px;" width="50" height="50" alt=""></button>
+                {% endif %}
+
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}"><img src="/media/love_button-1.png" style="position: relative; left: 710px; top: 5px;" width="50" height="50" alt=""></a>
+        {% endif %}
+        <a href="{{post.image.url}}" download="{{post.image.url}}" style="position: absolute; top: 5px; left:790px; top:10px; background-color: rgba(55, 0, 255, 0.815);" class="btn text-white">Download</a>
+        {% if user == post.author %}
+            <a href="{% url 'post-update' post.id %}" class=" btn btn-success btn-sm" style="position: relative; bottom:40px; left:30px;">Update</a>
+            <a href="{% url 'post-delete' post.id %}" class=" btn btn-danger btn-sm" style="position: relative; bottom:40px; left:30px;">Delete</a>
+        {% endif %}    
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+<div class="col-lg-9">
+    <legend>&nbsp;&nbsp;Comments</legend>
+    <hr>
+        <br>
+        Add Comment<a href="{% url 'add-comment' post.id %}"> here.</a>
+        <br>
+
+    {% if not post.comments.all %}
+    <br>
+    <h5>No Comments Yet... :(</h5>
+    {% else %}
+        {% for comment in post.comments.all %}
+            <br>
+            <strong>
+                <a class="mr-2 text-muted">{{ comment.name }}</a>
+                {{ comment.date_posted }}
+            </strong>
+            <br>
+            {{ comment.body }}
+            <br>
+            <hr>
+        {% endfor %}
+    {% endif %}
+    <br>
+</div>
+
+<script>
+    var form = document.getElementsByTagName('textarea')
+    form[1].style = "border-top:none;border-left:none;border-right:none;border-bottom:blue"
+    form[1].className = "form-control"
+    form[1].col = "1"
+    form[1].name = "post_id"
+
+</script>
+
+
+
+{% endblock %}

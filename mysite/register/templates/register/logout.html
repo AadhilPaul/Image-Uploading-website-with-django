@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Create Account - Join
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>You have been logged out.</h2>
+    <hr>
+    <p>Thanks for spending some quality time on our website.</p>
+    
+    <p class="text-muted float-left">If you want to login again?Login<a href="{% url 'login' %}" class="ml-2">Here.</a></p>
+    
+</div>
+{% endblock %}

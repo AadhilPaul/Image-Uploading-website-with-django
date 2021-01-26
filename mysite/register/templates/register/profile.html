@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Your Profile - {{user.username}}
+{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Your Profile</h1>
+    <br>
+    <hr class="container">
+</div>
+<div class="pl-5 container-fluid">
+    <div class="content-section">
+        <div class="media">
+            <img src="{{ users.profile.image.url }}" width="500" height="400" alt="" class="thumbnail">
+            <div class="media-body">
+                <br>
+                <h1 class="text- pl-5">{{ users.username }}</h1>
+                {% if users.id == user.id %}
+                    <small><a class="container float-right" style="position: relative; bottom: 30px;" href="{% url 'profile_update' %}">Change profile settings.</a></small>
+                {% endif %}
+                <p class="text-secondary pl-5">{{ users.email }}</p>
+                <legend class="pl-5">General Info:</legend>
+                <div class="pl-5">
+                    <ul class="pl-5">
+                        <li class="text-muted"><strong>Date of Birth: </strong>{{ users.profile.dob }}</li>
+                        <li class="text-muted"><strong>Phone Number: </strong>{{ users.profile.phone_number }}</li>
+                        <li class="text-muted"><strong>Country: </strong>{{ users.profile.country }}</li>
+                    </ul>
+                    <div class="col-lg-6">
+                        <p class="lead pl-3">{{users.profile.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% if users.id == user.id %}
+        <legend>Your Posts</legend>
+    {% else %}
+        <legend>{{users.username}}'s Posts</legend>    
+    {% endif %}    
+    <hr>
+    {% for post in posts %}
+        <a href="{% url 'post-view' post.id %}"><img src="{{ post.image.url }}" class="thumbnail" width="400" height="300" alt=""></a>
+    {% endfor %}
+
+
+</div>
+
+
+
+{% endblock %}

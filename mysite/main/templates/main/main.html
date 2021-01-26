@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+    <!-- Image Slider -->
+    <div id="slides" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            
+            <div class="carousel-item active">
+                <img src="media/alpine-3400788_1920.jpg" alt="" style="height: 600px; width:100%;">
+                <div class="carousel-caption">
+                    <strong><h1 class="text-white">Stunning free images and & royalty free stock</h1></strong>
+                    <p><big> Over 1.8 million+ high quality stock images and videos shared by our talented community.</big></p>
+                    <small>Popular Images: christmas, wallpaper, background, nature, halloween, thanksgiving, veterans day, business, food, diwali, money, love, office</small>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="search" placeholder="Search for Images..." class="form-control container p-3" style="position: relative; bottom:200px; border: 2px blue solid;">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+{% for post in posts %}
+<a href="{% url 'post-view' post.id %}"><img src="{{ post.image.url }}" class="thumbnail p-1" width="400" height="300" alt=""></a>
+{% endfor %}
+{% endblock content %}

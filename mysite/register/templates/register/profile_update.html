@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Profile Update - {{user.username}}
+{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Your Profile</h1>
+    <hr class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+<div class="pl-5 container-fluid">
+    <div class="content-section">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="media">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <img src="{{ user.profile.image.url }}" alt="" width="500" height="400" class="thumbnail">
+                            <div class="row">
+                                <div class="col-lg-12 image-upload">
+                                    <label for="file-input">
+                                        <img src="/media/camera.png" width="" height="50" class="thumbnail" style="position: relative; bottom: 400px;">
+                                    </label>
+                                    <br>
+                                    {{ p_form.image }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media-body">
+                        <br>
+                        <div class="pl-4">
+                            <area class="pl-5">&nbsp;Username*</area>
+                            {{ u_form.username }}
+                            <small class="pl-5">{{u_form.username.help_text}}</small>
+                            <br>
+                            <br>
+                            <area class="pl-5">&nbsp;Email*</area>
+                            {{ u_form.email }}
+                            <br>    
+                            <br>
+                        <div class="row pl-4">
+                            <div class="col-lg-3 pl-5">
+                            <area class="">Date of Birth</area>
+                                {{ p_form.dob }}        
+                            </div>
+                            <div class="col-lg-3">
+                                <area class="">Phone Number</area>
+                                {{ p_form.phone_number }}
+                            </div>
+                            <div class="col-lg-3">
+                            <area class="">Country</area>
+                                {{ p_form.country }}                        
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <area class="pl-5">&nbsp;Description*</area>
+                        {{p_form.description}}
+                        <br>
+                        <br>
+                        <div class="pl-4">
+                            <button type="submit" class="btn text-light" style="background-color: rgb(84, 59, 224); position: relative; left: 32px;">Submit</button>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </form>
+
+    </div>
+</div>
+
+
+<script>
+    var forms = document.getElementsByTagName('input')
+    var text = document.getElementsByTagName('textarea')
+    text[0].style = 'border: 2px blue solid; position:relative; right:150px;'
+    text[0].className = "form-control container"
+    text[0].rows = "4"
+    forms[1].id = "file-input"
+    forms[2].style = 'border: 2px blue solid; position:relative; right:150px;'
+    forms[3].style = 'border: 2px blue solid;; position:relative; right:150px;'
+    forms[4].style = 'border: 2px blue solid;'
+    forms[5].style = 'border: 2px blue solid;'
+    forms[6].style = 'border: 2px blue solid;'
+    
+    forms[4].type = "date"
+
+    for (var field in forms){
+        forms[field].className += 'form-control container'
+    }
+
+</script>
+
+<style>
+        
+    .image-upload>input {
+    display: none;
+    text-decoration: none;
+    font-display: unset;
+    }
+    </style>
+
+{% endblock %}

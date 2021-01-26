@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Welcome Back - Login
+{% endblock %}
+
+
+
+{% block content%}
+<div class="container">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <br>
+        <br>
+        <h1 class="text-center">Log In</h1>
+        <h2>Welcome Back</h2>
+        <legend>We are happy to see you again.</legend>
+        <hr>
+        <br>
+    
+        <h6 class="lead">{{form.username.label}}</h6>
+        {{form.username}}
+        <br>
+        <h6 class="lead">{{form.password.label}}</h6>
+        {{form.password}}
+        <small class="text-muted float-right">Don't have an account?<a href="{% url 'register' %}" class="ml-2">Join.</a></small>
+        <small class="text-muted float-left">Forgot Password?<a href="{% url 'password_reset' %}" class="ml-2">Reset.</a></small>
+        <br>
+        <hr>
+        {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+            <strong><p class="text-danger">{{ error }}</p></strong>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+        <strong><p class="text-danger">{{ error }}</p></strong>
+        {% endfor %}
+        {% endif %}
+        <br>
+        <input type="submit" name="" id="" class="btn form-control text-white" value="Login" style="background-color: rgb(84, 59, 224);">
+    </form>
+    
+</div>
+
+
+
+<script>
+    var forms = document.getElementsByTagName('input')
+    forms[1].className = "form-control"
+    forms[1].style = "border: 2px blue solid;"
+
+    forms[2].className = "form-control"
+    forms[2].style = "border: 2px blue solid;"
+
+</script>
+{% endblock %}
+

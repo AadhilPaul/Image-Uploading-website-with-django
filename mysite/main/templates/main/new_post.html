@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+New Post
+{% endblock %}
+
+
+{% block content %}
+<h1 class="text-center">Upload an Image</h1>
+<hr class="container">
+<br>
+<br>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-lg-6 container">
+
+        <div class="image-upload">
+            <label for="file-input">
+                <img src="/media/camera.png" alt="">                    
+            </label>
+            {{form.image}}
+        </div>
+
+        {{form.title.label}}*
+        {{form.title}}
+        <br>
+
+        <button type="submit" class="btn text-light" style="background-color: rgb(84, 59, 224);">Upload</button>
+
+    </div>
+</form>
+
+<script>
+    var forms = document.getElementsByTagName('input')
+    forms[1].id = "file-input"
+
+    for (var field in forms){
+        forms[field].className += 'form-control'
+        forms[field].style = "border: 2px blue solid;" 
+    }
+
+
+
+</script>
+
+<style>
+        
+    .image-upload>input {
+    display: none;
+    text-decoration: none;
+    font-display: unset;
+    }
+    </style>
+
+{% endblock %}

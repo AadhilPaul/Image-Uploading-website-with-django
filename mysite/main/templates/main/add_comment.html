@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Comment
+{% endblock %}
+
+
+{% block content %}
+<h1 class="text-center">Add a comment</h1>
+<hr class="container">
+<br>
+<br>
+<form method="POST" class="container">
+
+    {% csrf_token %}
+    <h6>Name*</h6>
+    {{ form.name }}
+    <br>
+    <br>
+    <h6>Content*</h6>
+    {{ form.body }}
+    <br>
+    <button type="submit" class="btn text-light" style="background-color: rgb(84, 59, 224);">Comment</button>
+
+    </div>
+</form>
+
+
+<script>
+    var text = document.getElementsByTagName('textarea')
+    var form = document.getElementsByTagName('input')
+    text[0].className = "form-control"
+    text[0].rows = 1
+    text[0].style = "border-top:none; border-left:none; border-right:none; border-bottom:2px blue solid;"
+
+    form[1].className = "form-control"
+    form[1].style = "border-top:none; border-left:none; border-right:none; border-bottom:2px blue solid;"
+
+
+</script>
+
+
+
+{% endblock %}
